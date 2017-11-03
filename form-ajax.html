@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+
+
+<script type="text/javascript">
+
+	var messageDelay = 2000;  // How long to display status messages (in milliseconds)
+
+	$( init );
+
+	function init() {
+
+		$('#contactForm').submit( submitForm );
+		  $('a[href="#contactForm"]').click( function() {
+			$('#content').fadeTo( 'slow', .2 );
+			$('#contactForm').fadeIn( 'slow', function() {
+			  $('#form_name').focus();
+			  
+		  
+			} )
+		
+			return false;
+		  } );
+		}
+
+
+		function submitForm() {
+		  var contactForm = $(this);
+		  
+
+		  //if ( !$('#form_name').val()) {
+  
+			var nomeX = $("#form_name").val();
+  			
+			if (nomeX == "Seu Nome*") {
+  
+				$('#incompleteMessageNome').fadeIn().delay(messageDelay).fadeOut();
+				//contactForm.fadeOut().delay(messageDelay).fadeIn();
+		
+  			} 
+  
+ 			else {
+  
+    		//if ( !$('#form_email').val()) {
+			var emailX = $("#form_email").val();
+  			
+			if (emailX == "Seu Email*") {			
+
+				$('#incompleteMessageEmail').fadeIn().delay(messageDelay).fadeOut();
+				//contactForm.fadeOut().delay(messageDelay).fadeIn();
+			
+			} 
+	
+			else {
+		
+				var email = $("#form_email").val();
+  			
+				if (IsEmail(email) == false) {
+		
+					$('#incompleteMessageEmailErro').fadeIn().delay(messageDelay).fadeOut();
+					//contactForm.fadeOut().delay(messageDelay).fadeIn();	
+				}
+		
+			else {
+		
+			//if ( !$('#form_phone').val()) {
+			var telefoneX = $("#form_phone").val();
+				
+			if (telefoneX == "") {			
+		
+				$('#incompleteMessageTelefone').fadeIn().delay(messageDelay).fadeOut();
+				//contactForm.fadeOut().delay(messageDelay).fadeIn();
+					
+            } 	
+		
+			else {
+		
+			//if ( !$('#form_message').val()) {
+			
+			var messageX = $("#form_message").val();
+				
+			if (messageX == "Informações sobre o seu pedido de orçamento...") {			
+		
+				$('#incompleteMessageMsg').fadeIn().delay(messageDelay).fadeOut();
+				//contactForm.fadeOut().delay(messageDelay).fadeIn();
+					
+			} 	
+		
+			else {
+			
+				$('#sendingMessage').fadeIn();
+				//contactForm.fadeOut();
+				
+				
+				$.ajax( {
+				  url: "envia1.php", //"envia.php",// contactForm.attr( 'action' ),
+				  type: "POST", //contactForm.attr( 'method' ),
+			  
+				  //data: formdata,
+      			  data: contactForm.serializearray(),
+				  success: submitFinished,
+				  
+				} );
+				
+		       }
+		  }
+	   }
+	} 
+ }
+
+  
+  // Prevent the default form submission occurring
+  return false;
+}
+
+
+// Handle the Ajax response
+
+function submitFinished( response ) {
+  response = $.trim( response );
+    $('#sendingMessage').fadeOut();
+    
+    $('#successMessage').fadeIn().delay(messageDelay).fadeOut();
+    $('#form_name').val( "Seu Nome*" );
+    $('#form_email').val( "Seu Email*" );
+    $('#form_phone').val( "Seu Telefone*" );
+    $('#form_assunto').val( "Pedido de Orçamento" );	
+    $('#form_message').val( "Informações sobre o seu pedido de orçamento..." );
+	$('#arquivo').val("");
+
+    $('#content').delay(messageDelay+500).fadeTo( 'slow', 1 );
+	
+	//location.reload();	
+  
+}
+</script>   
+
+
+</body>
+</html>
