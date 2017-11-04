@@ -188,7 +188,7 @@
             <div class="col-md-12">
 
 
-					<form id="contactForm" name="contactForm" action="envia1.php" method="post">
+					<form id="contactForm" name="contactForm" action="envia-form.php" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                             
@@ -211,7 +211,7 @@
                         
                         <div class="col-md-12" style="padding-left:0px;">
                             <div class="col-md-6" style="padding-left:0px;">
-                                <input style="float:left; position:relative; padding-left:0px;" name="arquivo" id="arquivo" type="file"  />
+                                <input style="float:left; position:relative; padding-left:0px;" name="arquivo[]" id="arquivo" type="file"  multiple="multiple" />
                             </div>
                             <p align="justify" style="margin-top:20px; position:relative; float:left; position:relative; padding-left:0px;">
                                 <strong>*Você pode selecionar 1 ou mais arquivos de imagem do local e até mesmo do modelo do produto. Para isso, selecione cada imagem segurando a tecla CTRL (CONTROL).</strong>
@@ -519,7 +519,7 @@ $('#sendingMessage').fadeIn();
 				
 			var formData = new FormData($(this)[0]);
 			$.ajax({
-				url: 'envia1.php',
+				url: 'envia-form.php',
 				type: 'post',
 				data: formData,
 				contentType: false,

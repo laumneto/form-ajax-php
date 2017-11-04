@@ -6,7 +6,9 @@
  $telefone =  strip_tags(trim($_POST['form_phone']));
  $assunto =  strip_tags(trim($_POST['form_assunto']));
  $mensagem = strip_tags(trim($_POST['form_message']));
-
+ 	echo "<pre>";
+	print_r($_FILES['arquivo']);
+	die;
  $anexado = $_FILES['arquivo']['name'];
  $extensao = strtolower(end(explode('.', $anexado)));
  $extensoes = array ('jpg', 'png');
